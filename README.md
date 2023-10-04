@@ -1,13 +1,13 @@
 # Healthcare-Analytics
 Projects in healthcare data
 
-## Diabetes Prediction project
+# Diabetes Prediction project
 In response to the escalating global diabetes epidemic, this project focuses on developing a predictive model using patient data. By analyzing treatment histories and physical features, our goal is to enhance diabetes risk assessment, early detection, and personalized treatment strategies. 
 In this project, I am going to use the Diabetes dataset from the Vanderbilt Biostatistics Datasets to build Predictive models to classify the diagnosis of diabetes. Logistic Regression, Random Forest, and Gradient Boosting will be used to build the predictive tools based on Binary Classification . The dataset contains the following features/values.
 
 <img src="nhgh_labels.png?" width="400" height="300"/>
 
-### Setup
+## Setup
 After going through the dataset, I found that several columns contains 1.3 - 14.2% null values so I imputed the colummns by means, zero, and 'missing'.
 ```
 #impute missing values with mean
@@ -43,19 +43,19 @@ print(n_diabetes, percent_diabetes)
 
 This issue will be addressed by oversampling in later section.
 
-### Exploratory Data Analysis
+## Exploratory Data Analysis
 
 
-### Building models
-#### Feature Engineering
+## Building models
+### Feature Engineering
 I performed the following feature engineering:
 - Binary encoding for sex
 - One-hot encoding for re and income
 
-#### Checking the Feature Importance
+### Checking the Feature Importance
 I am checking the feature importances by Random Forest
 
-#### Oversampling
+### Oversampling
 As I mentioned in the first section, the data has a significant class imbalance where 90.8% have no diabetes while only 9.2% have diabetes. I am going to use oversampling to address this issue.
 ```
 #Plotting after oversampling
@@ -66,8 +66,16 @@ y = y.astype('int32')
 X_resampled, y_resampled = resampling.fit_resample(X, y)
 ```
 
-#### Building Models
-I am going to use three models to predict the diabetes: Logistic regression, Random Forest, and XG Boost. I'm going to use Brier Score for the assessment of the model performance. Brier score is a metric used to assess the accuracy of probabilistic predictions made by a model. It typically ranges from 0 to 1, with lower values indicating better performance. A perfect model that makes accurate probabilistic predictions would have a Brier score of 0, whereas a completely random or uninformative model would have a Brier score of 0.25 for binary classification tasks (where there are two classes).
+### Building Models
+I am going to use three models to predict diabetes: Logistic regression, Random Forest, and Gradient Boosting. I'm going to use Brier Score for the assessment of the model performance. Brier score is a metric used to assess the accuracy of probabilistic predictions made by a model. It typically ranges from 0 to 1, with lower values indicating better performance. A perfect model that makes accurate probabilistic predictions would have a Brier score of 0, whereas a completely random or uninformative model would have a Brier score of 0.25 for binary classification tasks (where there are two classes).
 
 The formula:
-<img src="brier_score.png?" width="200" height="150"/>
+<img src="brier_score.png?" width="200" height="100"/>
+
+As a result of running three models using Random Search CV, following scores could be obtained:
+```
+Brier score of Logistic regression: 0.045775191908331264
+Brier score of Random Forest: 0.07184990225078539
+Brier score of Gradient Boosting: 0.03189263144999795
+```
+The Brier score of the Gradient Boosting model had the best outcome.
